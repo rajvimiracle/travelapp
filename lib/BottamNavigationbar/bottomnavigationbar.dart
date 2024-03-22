@@ -1,11 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:travelapp/BottamNavigationbar/DiscountPage/DiscountPage.dart';
 import 'package:travelapp/BottamNavigationbar/HomePage/HomePage.dart';
 import 'package:travelapp/BottamNavigationbar/NotificationPage/NotificationPage.dart';
 import 'package:travelapp/BottamNavigationbar/ProfilePage/ProfilePage.dart';
 import 'package:travelapp/BottamNavigationbar/TicketPage/TicketPage.dart';
+import 'package:travelapp/CustomElements/elements/CustomColor.dart';
 import 'package:travelapp/constant/IconPath.dart';
 
 class BotomNavigationBar extends StatefulWidget {
@@ -69,7 +71,10 @@ return Scaffold(
 
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(IconPath.discount,scale: 1,),
+             icon: CircleAvatar(
+               backgroundColor: CustomColors.textcolor,
+               child: Icon(Icons.percent_outlined,size: 25,color: selectedIndex == 2 ? CustomColors.background : CustomColors.iconcolor2),
+             ),
               label: "Discount",
             ),
 
@@ -81,7 +86,6 @@ return Scaffold(
               icon: Icon(Icons.account_circle_outlined,size: 25,),
               label: "Profile",
             ),
-
           ],
           onTap: _onItemTapped,
           elevation: 5,

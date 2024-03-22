@@ -23,6 +23,15 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> {
+  final List<String> categories = [
+    "All",
+    "Completed",
+    "Refunded",
+  ];
+List<String> selectCategories = [];
+
+
+
 
   var  _razorpay = Razorpay();
   var options;
@@ -36,7 +45,7 @@ class _TicketPageState extends State<TicketPage> {
     options = {
       'key': 'rzp_test_1DP5mmOlF5G5ag',
       'amount': 100 * 100,
-      'name': 'Sai Gopi YT',
+      'name': 'Miracle',
       'description': 'Course Free',
       'prefill': {'contact': '7981686394', 'email': 'test@razorpay.com'}
     };
@@ -60,7 +69,7 @@ class _TicketPageState extends State<TicketPage> {
   }
 
 
-  int selectedIndex = 0;
+ /* int selectedIndex = 0;*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,31 +105,16 @@ class _TicketPageState extends State<TicketPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ChoiceChip(label: Text("ALL"),
-                          showCheckmark: false,
-                          selected: selectedIndex == 0,
-                          onSelected: (value) {
-                            setState(() {
-                              selectedIndex = 0 ;
-                            });
-                          },
-                        ),
-                        ChoiceChip(label: Text("completed"),
-                          showCheckmark: false,
-                          selected: selectedIndex == 1,
-                          disabledColor: Colors.transparent,onSelected: (value) {
-                            setState(() {
-                              selectedIndex = 1;
-                            });
-                          },),
-                        ChoiceChip(label: Text("refunded"),
-                          showCheckmark: false,
-                          selected: selectedIndex == 2,
-                          disabledColor: Colors.transparent,onSelected: (value) {
-                            setState(() {
-                              selectedIndex = 2;
-                            });
-                          },),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children:
+                            categories.map((category) => FilterChip(label: Text(category), onSelected: (selected) {
+
+                            }))
+                                .toList(),
+
+                        )
+
                       ],
                     ),
                   ),
@@ -128,12 +122,22 @@ class _TicketPageState extends State<TicketPage> {
               ),
             ),
           ),
-          Container(
+          Expanded(child: ListView.builder(
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  
+                ],
+              );
+          },))
+          /*Container(
             padding: EdgeInsets.only(top: 20.h,left: 7.w,right: 7.w,),
             child: SingleChildScrollView(
               child:  Column(
                 children: [
-                  selectedIndex == 0 ? Column(
+
+                *//*  selectedIndex == 0 ? Column(
                     children: [
                       ContainerWidget(),
                       SizedBox(height: 4.h,),
@@ -176,11 +180,11 @@ class _TicketPageState extends State<TicketPage> {
                       ContainerWidget2(),
                       SizedBox(height: 4.h,),
                     ],
-                  ) : SizedBox(),
+                  ) : SizedBox(),*//*
                 ],
               ),
             ),
-          ),
+          ),*/
         ],
       ),
     );
@@ -393,4 +397,30 @@ class _TicketPageState extends State<TicketPage> {
     );
   }
 }
+/*
 
+ChoiceChip(label: Text("ALL"),
+showCheckmark: false,
+selected: selectedIndex == 0,
+onSelected: (value) {
+setState(() {
+selectedIndex = 0 ;
+});
+},
+),
+ChoiceChip(label: Text("completed"),
+showCheckmark: false,
+selected: selectedIndex == 1,
+disabledColor: Colors.transparent,onSelected: (value) {
+setState(() {
+selectedIndex = 1;
+});
+},),
+ChoiceChip(label: Text("refunded"),
+showCheckmark: false,
+selected: selectedIndex == 2,
+disabledColor: Colors.transparent,onSelected: (value) {
+setState(() {
+selectedIndex = 2;
+});
+},),*/

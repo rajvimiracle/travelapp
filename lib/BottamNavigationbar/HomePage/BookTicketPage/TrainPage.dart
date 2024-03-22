@@ -350,7 +350,7 @@ class TrainPage extends StatelessWidget {
                   ])),
               child: Center(
                   child: Text(
-                    AppString.searchf,
+                    "SEARCH TRAIN",
                     style: CustomStyles.textStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15.sp,
