@@ -23,21 +23,21 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> {
-  final List<String> categories = [
-    "All",
-    "Completed",
-    "Refunded",
-  ];
-List<String> selectCategories = [];
-
-
-
 
   var  _razorpay = Razorpay();
   var options;
+  List all = [];
+  List filtered = [];
 
   @override
   void initState() {
+
+    filtered = all;
+
+    filtered = all.where((element) => element.i == "completed").toList();
+    filtered = all.where((element) => element.i == "refund").toList();
+
+
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
@@ -69,7 +69,7 @@ List<String> selectCategories = [];
   }
 
 
- /* int selectedIndex = 0;*/
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,16 +105,31 @@ List<String> selectCategories = [];
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children:
-                            categories.map((category) => FilterChip(label: Text(category), onSelected: (selected) {
-
-                            }))
-                                .toList(),
-
-                        )
-
+                        ChoiceChip(label: Text("ALL"),
+                          showCheckmark: false,
+                          selected: selectedIndex == 0,
+                          onSelected: (value) {
+                            setState(() {
+                              selectedIndex = 0 ;
+                            });
+                          },
+                        ),
+                        ChoiceChip(label: Text("completed"),
+                          showCheckmark: false,
+                          selected: selectedIndex == 1,
+                          disabledColor: Colors.transparent,onSelected: (value) {
+                            setState(() {
+                              selectedIndex = 1;
+                            });
+                          },),
+                        ChoiceChip(label: Text("refunded"),
+                          showCheckmark: false,
+                          selected: selectedIndex == 2,
+                          disabledColor: Colors.transparent,onSelected: (value) {
+                            setState(() {
+                              selectedIndex = 2;
+                            });
+                          },),
                       ],
                     ),
                   ),
@@ -122,22 +137,12 @@ List<String> selectCategories = [];
               ),
             ),
           ),
-          Expanded(child: ListView.builder(
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  
-                ],
-              );
-          },))
-          /*Container(
+          Container(
             padding: EdgeInsets.only(top: 20.h,left: 7.w,right: 7.w,),
             child: SingleChildScrollView(
               child:  Column(
                 children: [
-
-                *//*  selectedIndex == 0 ? Column(
+                  selectedIndex == 0 ? Column(
                     children: [
                       ContainerWidget(),
                       SizedBox(height: 4.h,),
@@ -180,11 +185,11 @@ List<String> selectCategories = [];
                       ContainerWidget2(),
                       SizedBox(height: 4.h,),
                     ],
-                  ) : SizedBox(),*//*
+                  ) : SizedBox(),
                 ],
               ),
             ),
-          ),*/
+          ),
         ],
       ),
     );
@@ -397,30 +402,3 @@ List<String> selectCategories = [];
     );
   }
 }
-/*
-
-ChoiceChip(label: Text("ALL"),
-showCheckmark: false,
-selected: selectedIndex == 0,
-onSelected: (value) {
-setState(() {
-selectedIndex = 0 ;
-});
-},
-),
-ChoiceChip(label: Text("completed"),
-showCheckmark: false,
-selected: selectedIndex == 1,
-disabledColor: Colors.transparent,onSelected: (value) {
-setState(() {
-selectedIndex = 1;
-});
-},),
-ChoiceChip(label: Text("refunded"),
-showCheckmark: false,
-selected: selectedIndex == 2,
-disabledColor: Colors.transparent,onSelected: (value) {
-setState(() {
-selectedIndex = 2;
-});
-},),*/
